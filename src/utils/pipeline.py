@@ -9,7 +9,7 @@ class Pipeline:
         - preprocess data
         - prepare data
         - analysis
-        this methods can be rewriten for several uses
+        these methods can be rewriten for several uses
     """
     result:any = None
 
@@ -23,7 +23,7 @@ class Pipeline:
         pass
 
     def __anaylsis__(self):
-        pass
+        self.result = None
 
     def run(self):
         """
@@ -34,4 +34,4 @@ class Pipeline:
         self.__prepare__()
         self.__anaylsis__()
 
-        return self. result
+        return self.result
