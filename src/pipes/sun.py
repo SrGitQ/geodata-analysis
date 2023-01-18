@@ -5,7 +5,7 @@ class Sun(Pipeline):
     """
         pass
     """
-    result:any = None
+    result:any = None  # type: ignore
 
     def __load_data__(self):
         pass
