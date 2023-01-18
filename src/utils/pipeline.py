@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from src.utils.downloader import download
 
 
 @dataclass
@@ -11,10 +12,19 @@ class Pipeline:
         - analysis
         these methods can be rewriten for several uses
     """
-    result:any = None
+    result:any = None # type: ignore
 
-    def __load_data__(self):
-        pass
+    def __load_data__(self, url:str=""):
+        """
+            This function will download the raw data from its source.
+            # Parameters
+            url:str 'www.abc.com/abc'
+            # Output
+            data:geopandas dataframe []
+        """
+
+        # download the raw data and retur
+        return download(url)
 
     def __preprocessing__(self):
         pass
