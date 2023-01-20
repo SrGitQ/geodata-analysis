@@ -27,10 +27,10 @@ class Pipeline:
         # download raw data
         download(self.url)
 
-    def __preprocessing__(self):
+    def __prepare__(self):
         pass
 
-    def __prepare__(self):
+    def __preprocessing__(self):
         pass
 
     def __anaylsis__(self):
@@ -41,8 +41,8 @@ class Pipeline:
             This will run all the methods of the pipeline and return the result
         """
         self.__download_data__()
-        self.__preprocessing__()
         self.__prepare__()
+        self.__preprocessing__()
         self.__anaylsis__()
 
         return self.geodata
