@@ -6,8 +6,8 @@ class Analysis(Pipeline):
     """
         pass
     """
-    result:any = None
-
+    result:any = None# type: ignore
+    
     def __parallel_process__(self):
         censo_90 = Censo()
 

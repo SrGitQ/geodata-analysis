@@ -13,6 +13,7 @@ class Pipeline:
         these methods can be rewriten for several uses
     """
     result:any = None # type: ignore
+    url:str = ""
 
     def __load_data__(self, url:str=""):
         """
@@ -23,7 +24,7 @@ class Pipeline:
             data:geopandas dataframe []
         """
 
-        # download the raw data and retur
+        # download and return the raw data
         return download(url)
 
     def __preprocessing__(self):

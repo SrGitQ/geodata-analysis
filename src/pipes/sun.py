@@ -6,6 +6,7 @@ class Sun(Pipeline):
         pass
     """
     result:any = None  # type: ignore
+    url:str = ""
 
     def __load_data__(self):
         pass
