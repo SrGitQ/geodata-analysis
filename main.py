@@ -28,5 +28,7 @@ class Analysis(Pipeline):
         return self.geodata
 
 if __name__ == "__main__":
-    print('running the analysis')
+    print('Running the analysis')
     analysis = Analysis().run()
+    
+    print('Runing the tests')
