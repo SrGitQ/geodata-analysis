@@ -1,0 +1,73 @@
+LÉEME
+
+
+El Instituto Nacional de Estadística y Geografía (INEGI), responsable de brindar el servicio público de información estadística y geográfica, presenta el producto MARCO GEOESTADÍSTICO, CENSO DE POBLACIÓN Y VIVIENDA 2020 INTEGRADO, es un producto conformado por archivos digitales en formato SHAPE, cuyo corte corresponde al Cierre del Censo de Población y Vivienda 2020. Está integrado en una carpeta y contiene un total nacional de 32 áreas geoestadísticas estatales, 2 469 áreas geoestadísticas municipales, 45 397 polígonos de  localidades rurales amanzanadas,  4 911 polígonos de localidades urbanas, 295 779 puntos de localidades rurales amanzanadas y no amanzanadas, 17 469 áreas geoestadísticas básicas rurales y 63 982 áreas geoestadísticas básicas urbanas; la información presenta asociados como atributo, sus nombres y claves geoestadísticas.
+
+El Marco Geoestadístico es un sistema único y de carácter nacional diseñado por el INEGI, el cual presenta la división del país en diferentes niveles de desagregación, para referir geográficamente la información estadística institucional y de las unidades del estado que se integran al Sistema Nacional de Información Estadística y Geográfica (SNIEG).
+
+El producto MARCO GEOESTADÍSTICO, CENSO DE POBLACIÓN Y VIVIENDA 2020 INTEGRADO, es la representación vectorial del Marco Geoestadístico en sus diferentes niveles de desagregación, con sus respectivas claves y nombres, lo que permite integrar un Catálogo Único de Claves de Áreas Geoestadísticas Estatales, Municipales y Localidades en el periodo de octubre 2019-marzo 2020, con la finalidad de ofrecer un marco de referencia común entre las autoridades, la academia, la sociedad y el INEGI.
+
+Toda la información está referida en base a los parámetros: Cónica Conforme de Lambert (CCL) y Dátum ITRF2008. Cabe aclarar que la ubicación, forma, inclinación y proporción de los elementos es aproximada, debido a las fuentes y métodos de compilación.
+
+Los archivos vectoriales se encuentran disponibles en formato SHAPE (SHP), los cuales pueden ser incorporados en sistemas de información geográfica (SIG). 
+	
+Nota: El producto fue generado y probado en el software ArcGIS ver.10.8.1, y se pueden presentar huecos y/o traslapes de hasta 1 metro entre los diversos elementos que lo conforman.
+
+Para el mejor aprovechamiento del producto, es importante que el usuario utilice un software con los recursos de hardware mínimos que el fabricante recomiende y que además sea adecuado para las características y volumen de información del producto.
+
+Por sus características, el producto MARCO GEOESTADÍSTICO, CENSO DE POBLACIÓN Y VIVIENDA 2020 INTEGRADO puede ser utilizado por los sectores público, privado y académico, entre otros.
+
+Cabe señalar que el mencionado producto toma como base el inmediato anterior (MARCO GEOESTADÍSTICO, SEPTIEMBRE 2019). Además, se complementa con el archivo de presentación léeme, y el archivo de contenido que detalla las características técnicas de la información; estos archivos se encuentran en formato pdf y txt. 
+
+Y en formatos pdf y csv, los catálogos de: 
+* entidades_federativas
+* municipios
+* localidades_urbanas_y_rurales_amanzanadas.
+* localidades_rurales_que_rebasan_su_ municipio
+* localidades_urbanas_que_rebasan_su_municipio 
+* localidades_rurales_que_rebasan_AGEB
+* localidades_islas (localidades que se ubican en un municipio y administrativamente pertenecen a otro municipio) 
+
+Los cuatro últimos detallan, de manera muy específica, situaciones especiales o de excepción que se presentan en algunas localidades.
+
+ESTRUCTURA
+
+Los archivos se encuentran organizados por capa, con base en la siguiente organización:
+
+00capa
+Donde:
+Capa indica con sufijos (ent, mun, etc.), el tipo de elemento contenido en cada archivo:
+
+00ent Áreas geoestadísticas estatales
+00mun Áreas geoestadísticas municipales
+00a   Áreas geoestadísticas básicas urbanas y rurales
+00l   Polígono de localidades urbanas y rurales amanzanadas
+00lpr Localidades puntuales rurales	        
+
+
+
+Porque proporcionamos información para todos...
+¡México cuenta con el INEGI!
+
+Queda prohibida la reproducción total o parcial de este producto con fines de lucro, por cualquier medio, ya sea impreso o electrónico.
+
+Consecuentemente, la persona física o moral que sin autorización fotocopie, grabe, almacene en algún sistema o transmita a medios electrónicos o magnéticos dicha información, quedará sujeta a las disposiciones legales.
+
+DR (C) 2013,	Instituto Nacional de Estadística y Geografía
+Edificio Sede
+Av. Héroe de Nacozari Sur No. 2301
+Fracc. Jardines del Parque, CP 20276
+Aguascalientes, Aguascalientes, México.
+
+
+www.inegi.org.mx
+atencion.usuarios@inegi.org.mx  
+
+Cualquier comentario, duda o aclaración respecto al producto, favor de dirigirse con:
+
+Claudio Martínez Topete
+Director General Adjunto de Información Geográfica para la Administración del Territorio
+claudio.martinez@inegi.org.mx 
+
+
+MARCO GEOESTADÍSTICO, CENSO DE POBLACIÓN Y VIVIENDA 2020 INTEGRADO.

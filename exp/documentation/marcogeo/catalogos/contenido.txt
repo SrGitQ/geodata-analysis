@@ -1,0 +1,102 @@
+CONTENIDO 
+
+El producto MARCO GEOESTADÍSTICO, CENSO DE POBLACIÓN Y VIVIENDA 2020 INTEGRADO, es un producto conformado por archivos digitales en formato SHAPE, cuyo corte corresponde al Cierre del Censo de Población y Vivienda 2020. Está integrado en una carpeta, con un total nacional de 32 áreas geoestadísticas estatales, 2 469 áreas geoestadísticas municipales, 45 397 polígonos de localidades rurales amanzanadas, 4 911 polígonos de localidades urbanas, 295 779 puntos de localidades rurales amanzanadas y no amanzanadas, 17 469 áreas geoestadísticas básicas rurales y 63 982 áreas geoestadísticas básicas urbanas; la información mantiene asociados a manera de atributo los nombres y claves geoestadísticas.
+
+El producto MARCO GEOESTADÍSTICO, CENSO DE POBLACIÓN Y VIVIENDA 2020 INTEGRADO, se compone de tres carpetas:
+
+* catálogos: contiene los catálogos y la documentación del producto. 
+* conjunto_de_datos: contiene los archivos vectoriales.           
+* metadatos: contiene los metadatos en formato xml y txt, y un metadato genérico en formato txt.
+
+Nombre y Contenido de los Archivos Vectoriales
+ 
+Los nombres de archivos se conforman con la clave 00 y la capa con sufijos descriptivos del contenido del archivo:
+Donde:
+
+00ent Áreas geoestadísticas estatales
+00mun Áreas geoestadísticas municipales
+00a   Áreas geoestadísticas básicas urbanas y rurales
+00l   Polígono de localidades urbanas y rurales amanzanadas
+00lpr Localidades puntuales rurales
+
+Formato
+SHAPE	
+
+Documentación
+
+El detalle de los elementos que conforman el producto MARCO GEOESTADÍSTICO, CENSO DE POBLACIÓN Y VIVIENDA 2020 INTEGRADO, se encuentran en los siguientes catálogos, en formatos pdf y csv.
+
+* entidades_federativas
+* municipios
+* localidades_urbanas_y_rurales_amanzanadas
+* localidades_rurales_que_rebasan_su_ municipio
+* localidades_urbanas_que_rebasan_su_municipio
+* localidades_rurales_que_rebasan_AGEB 
+* localidades_islas (localidades que se ubican en un municipio y administrativamente pertenecen a otro municipio) 
+
+Asimismo, se complementa con el presente documento contenido, el cual puntualiza las características técnicas de la información, además del archivo de presentación léeme, estos archivos se encuentran en formato pdf y txt.  
+
+Características técnicas de la información: 
+
+Parámetros: 
+Cónica Conforme de Lambert (CCL) 
+Dátum: ITRF2008. 
+Elipsoide: GRS80. 
+Meridiano origen: 102° 00’ 00’’ W. 
+Latitud origen: 12° 00’ 00’’ N. 
+Primer paralelo estándar: 17° 30’ N. 
+Segundo paralelo estándar: 29° 30’ N. 
+Falso Este: 2 500 000. 
+Falso Norte: 0 
+
+Fuente    
+La base cartográfica utilizada corresponde al MARCO GEOESTADÍSTICO, SEPTIEMBRE 2019.
+
+El software utilizado para la digitalización de la cartografía y generación de los archivos SHAPE fue ArcGis en su versión 10.8.1 y se puede presentar hasta 1 metro de diferencia entre los diversos elementos del archivo vectorial.
+
+
+Estructura
+
+00ent áreas geoestadísticas estatales
+CAMPO	DESCRIPCIÓN
+CVEGEO	Clave geoestadística concatenada
+CVE_ENT	Clave de entidad federativa
+NOMGEO	Nombre geográfico de la entidad
+
+00mun áreas geoestadísticas municipales
+CAMPO	DESCRIPCIÓN
+CVEGEO	Clave geoestadística concatenada
+CVE_ENT	Clave de entidad federativa
+CVE_MUN	Clave del municipio
+NOMGEO	Nombre geográfico del municipio
+
+00a	áreas geoestadísticas básicas urbanas y rurales
+CAMPO	 DESCRIPCIÓN
+CVEGEO	 Clave geoestadística concatenada
+CVE_ENT	 Clave de entidad federativa
+CVE_MUN	 Clave del municipio
+CVE_LOC	 Clave de localidad (0000 para AGEB rurales)
+CVE_AGEB Clave de AGEB
+AMBITO	 Ámbito de AGEB ("Urbana", "Rural")
+
+00lpr	 puntos de ubicación de localidades rurales
+CAMPO	 DESCRIPCIÓN
+CVEGEO	 Clave geoestadística concatenada
+CVE_ENT	 Clave de entidad federativa
+CVE_MUN	 Clave del municipio
+CVE_LOC	 Clave de localidad
+CVE_AGEB Clave de AGEB
+CVE_MZA	 Clave de manzana
+NOMGEO	 Nombre geográfico de la localidad
+PLANO	 Estatus de amanzanamiento
+
+00l	localidad urbana y rural amanzanada
+CAMPO	DESCRIPCIÓN
+CVEGEO	Clave geoestadística concatenada
+CVE_ENT	Clave de entidad federativa
+CVE_MUN	Clave del municipio
+CVE_LOC	Clave de localidad
+NOMGEO	Nombre geográfico de la localidad
+ÁMBITO	Ámbito de localidad ("Urbana", "Rural")
+
+
