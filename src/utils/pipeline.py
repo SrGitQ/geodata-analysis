@@ -12,10 +12,11 @@ class Pipeline:
         - analysis
         these methods can be rewriten for several uses
     """
-    result:any = None # type: ignore
+    geodata:any = None # type: ignore
     url:str = ""
+    name:str = ""
 
-    def __load_data__(self, url:str=""):
+    def __download_data__(self):
         """
             This function will download the raw data from its source.
             # Parameters
@@ -24,8 +25,8 @@ class Pipeline:
             data:geopandas dataframe []
         """
 
-        # download and return the raw data
-        return download(url)
+        # download raw data
+        download(self.url, name=self.name)
 
     def __preprocessing__(self):
         pass
@@ -34,15 +35,15 @@ class Pipeline:
         pass
 
     def __anaylsis__(self):
-        self.result = None
+        self.geodata = None
 
     def run(self):
         """
-            Will run all the methods of the pipeline and return the result
+            This will run all the methods of the pipeline and return the result
         """
-        self.__load_data__()
+        self.__download_data__()
         self.__preprocessing__()
         self.__prepare__()
         self.__anaylsis__()
 
-        return self.result
+        return self.geodata
