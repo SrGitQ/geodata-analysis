@@ -1,20 +1,14 @@
 import requests
-import os
+from src.utils.files import auxiliar_files
 
-def auxiliar_files():
-    """
-        This function will check if all the auxiliar files exist, the files will
-        be created just in negative case.
-    """
-    print("Files and analysis will be generated at... ", os.path.dirname)
-    files_list = os.listdir()
-    if 'data' not in files_list:
-        os.mkdir('data')
-
-def download(url:str="", name:str=''):
+def download(url:str=""):
     """
         download data from url, and storage into files with the given name.
     """
+    # Naming the file
+    name = url.split('/')[-1]
+    print('Downloading... ', name)
+
     # Data will be obtained
     source = requests.get(url).content
 
@@ -22,4 +16,4 @@ def download(url:str="", name:str=''):
     auxiliar_files()
 
     # Write the data into the proper file
-    open(name, "wb").write(source)
+    open("data/"+name, "wb").write(source)

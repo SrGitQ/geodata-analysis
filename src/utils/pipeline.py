@@ -12,9 +12,8 @@ class Pipeline:
         - analysis
         these methods can be rewriten for several uses
     """
-    geodata:any = None # type: ignore
+    geodata = {}
     url:str = ""
-    name:str = ""
 
     def __download_data__(self):
         """
@@ -26,7 +25,7 @@ class Pipeline:
         """
 
         # download raw data
-        download(self.url, name=self.name)
+        download(self.url)
 
     def __preprocessing__(self):
         pass
@@ -35,7 +34,7 @@ class Pipeline:
         pass
 
     def __anaylsis__(self):
-        self.geodata = None
+        self.geodata = {}
 
     def run(self):
         """
