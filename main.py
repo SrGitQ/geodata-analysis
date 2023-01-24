@@ -7,7 +7,7 @@ def process(source:'Pipeline'):
 
 class Analysis(Pipeline):
     """
-        pass
+        Analysis
     """
     geodata:dict[str, dict | str | int | float | None] = {}
 
