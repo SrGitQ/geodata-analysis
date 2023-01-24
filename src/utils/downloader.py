@@ -1,19 +1,24 @@
 import requests
 from src.utils.files import auxiliar_files
+import os
 
-def download(url:str=""):
+def download(url:str="", name:str=""):
     """
         download data from url, and storage into files with the given name.
     """
     # Naming the file
-    name = url.split('/')[-1]
     print('Downloading... ', name)
+
+    # Check and create the auxiliar files
+    auxiliar_files()
+    
+    # check files
+    if name in os.listdir('data'):
+        return
 
     # Data will be obtained
     source = requests.get(url).content
 
-    # Check and create the auxiliar files
-    auxiliar_files()
 
     # Write the data into the proper file
     open("data/"+name, "wb").write(source)

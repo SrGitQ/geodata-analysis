@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from src.utils.downloader import download
+from src.utils.files import unzip_file
 
 
 @dataclass
@@ -23,12 +24,13 @@ class Pipeline:
             # Output
             data:geopandas dataframe []
         """
-
+        self.name = self.url.split('/')[-1]
+        
         # download raw data
-        download(self.url)
+        download(self.url, self.name)
 
     def __prepare__(self):
-        pass
+        unzip_file('data/'+self.name)
 
     def __preprocessing__(self):
         pass

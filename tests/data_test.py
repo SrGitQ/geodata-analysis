@@ -4,15 +4,15 @@ import os
 
 class RawDataTest(unittest.TestCase):
 
-    def test_censo_1990_csv(self):
-        file = 'ITER_NALTXT90.csv'
+    def test_censo_1990_txt(self):
+        file = 'ITER_NALTXT90.txt'
         self.assertTrue(file in os.listdir('data'), f'the file {file} is not at /data')
     
-    def test_censo_2000_csv(self):
+    def test_censo_2000_txt(self):
         file = 'ITER_NALTXT00.txt'
         self.assertTrue(file in os.listdir('data'), f'the file {file} is not at /data')
     
-    def test_censo_2010_csv(self):
+    def test_censo_2010_dbf(self):
         file = 'ITER_NALDBF10.dbf'
         self.assertTrue(file in os.listdir('data'), f'the file {file} is not at /data')
     
@@ -20,11 +20,11 @@ class RawDataTest(unittest.TestCase):
         file = 'ITER_NALCSV20.csv'
         self.assertTrue(file in os.listdir('data'), f'the file {file} is not at /data')
     
-    def test_mg_2020_integrado_zip(self):
-        file = 'mg_2020_integrado.zip'
+    def test_base_sun_2018_csv(self):
+        file = 'Base_SUN_2018.csv'
         self.assertTrue(file in os.listdir('data'), f'the file {file} is not at /data')
     
-    def test_base_sun_2018_csv(self):
+    def test_mg_2020_integrado(self):
         files = [
             '00a.cpg',
             '00a.dbf',
