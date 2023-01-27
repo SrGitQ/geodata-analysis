@@ -21,7 +21,7 @@ class Analysis(Pipeline):
 
         sources = [censo_1990, censo_2000, censo_2010, censo_2020, marcogeo, sun]
 
-        with Pool(6) as p:
+        with Pool(len(sources)) as p:
             p.map(process, sources)
 
     def __anaylsis__(self):
