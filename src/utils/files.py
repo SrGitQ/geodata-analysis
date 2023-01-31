@@ -16,5 +16,5 @@ def unzip_file(file:str="", route:str="data"):
     """
     import zipfile
 
-    with zipfile.ZipFile(file, 'r') as zip_ref:
+    with zipfile.ZipFile(route+'/'+file, 'r') as zip_ref:
         zip_ref.extractall(route)

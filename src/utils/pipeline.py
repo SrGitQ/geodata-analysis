@@ -30,7 +30,7 @@ class Pipeline:
         download(self.url, self.name)
 
     def __prepare__(self):
-        unzip_file('data/'+self.name)
+        unzip_file(self.name, 'data')
 
     def __preprocessing__(self):
         pass
