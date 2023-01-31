@@ -5,6 +5,7 @@ from multiprocessing import Pool
 def process(source:'Pipeline'):
     source.run()
 
+
 class Analysis(Pipeline):
     """
         Analysis
