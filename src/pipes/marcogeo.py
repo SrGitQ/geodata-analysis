@@ -13,7 +13,7 @@ class Marcogeo(Pipeline):
         unzip_file(route_inside, route_inside.replace('.zip', ''))
 
     def __preprocessing__(self):
-        pass
+        self.geodata = gpd.read_file('data/conjunto_de_datos/00mun.shp')
 
     def __anaylsis__(self):
-        pass
+        self.geodata['CVEGEO'] = pd.to_numeric(self.geodata['CVEGEO'])
