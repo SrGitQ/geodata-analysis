@@ -1,6 +1,9 @@
 from src.utils import Pipeline
 from src.pipes import Censo, Marcogeo, Sun
 from multiprocessing import Pool
+import geopandas as gpd
+import numpy as np
+import pandas as pd
 
 def process(source:'Pipeline'):
     source.run()
