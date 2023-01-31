@@ -9,10 +9,18 @@ def auxiliar_files():
     files_list = os.listdir()
     if 'data' not in files_list:
         os.mkdir('data')
+    
+def rm_file(file:str="", route:str="data"):
+    """
+        Delete the files unwanted, mainly .zip files.
+    """
+    import os
+    os.remove(route+'/'+file)
+
 
 def unzip_file(file:str="", route:str="data"):
     """
-    
+        Unzip the files that contains the raw data.
     """
     import zipfile
 
