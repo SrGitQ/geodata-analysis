@@ -15,7 +15,11 @@ def rm_file(file:str="", route:str="data"):
         Delete the files unwanted, mainly .zip files.
     """
     import os
-    os.remove(route+'/'+file)
+    try:
+        os.remove(route+'/'+file)
+    except:
+        os.removedirs(route+'/'+file)
+        print('Unexpected operation')
 
 
 def unzip_file(file:str="", route:str="data"):
