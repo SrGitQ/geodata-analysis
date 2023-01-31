@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from src.utils.downloader import download
 from src.utils.files import unzip_file
+from src.utils.files import rm_file
 
 
 @dataclass
@@ -31,6 +32,7 @@ class Pipeline:
 
     def __prepare__(self):
         unzip_file('data/'+self.name)
+        rm_file(self.name, 'data')
 
     def __preprocessing__(self):
         pass
