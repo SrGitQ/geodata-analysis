@@ -7,16 +7,19 @@ def download(url:str="", name:str=""):
         download data from url, and storage into files with the given name.
     """
     # Naming the file
-    print('Downloading... ', name)
+    print('spread... ', name)
 
     # Check and create the auxiliar files
     auxiliar_files()
     
     # check files
-    if name in os.listdir('data'):
+    print('checking...', name)
+    if name.replace('.zip', '') in [f.replace('.csv', '').replace('.dbf', '').replace('.txt', '') for f in os.listdir('data')]:
+        print('already: ', name)
         return
 
     # Data will be obtained
+    print('Downloading... ', name)
     source = requests.get(url).content
 
 

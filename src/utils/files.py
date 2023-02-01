@@ -18,7 +18,8 @@ def rm_file(file:str="", route:str="data"):
     try:
         os.remove(route+'/'+file)
     except:
-        os.removedirs(route+'/'+file)
+        import shutil
+        shutil.rmtree(route+'/'+file)
         print('Unexpected operation')
 
 
