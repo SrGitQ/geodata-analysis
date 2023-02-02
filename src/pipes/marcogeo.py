@@ -8,9 +8,8 @@ class Marcogeo(Pipeline):
     """
     def __prepare__(self):
         try:
-            route_inside = 'data/'+self.name
-            unzip_file(route_inside, route_inside.replace('.zip', ''))
-            rm_file(self.name, 'data')
+            unzip_file(self.name)
+            rm_file(self.name)
         except:
             pass
 
