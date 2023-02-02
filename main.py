@@ -1,6 +1,7 @@
 from src.utils import Pipeline
 from src.pipes import Censo, Marcogeo, Sun
 from multiprocessing import Pool
+import os
 
 def process(source:'Pipeline'):
     source.run()
@@ -24,12 +25,20 @@ class Analysis(Pipeline):
 
         with Pool(len(sources)) as p:
             p.map(process, sources)
+    
+    def __prepare__(self):
+        
+        names = os.listdir('data')
+        for name in names:
+            if '.txt' in name:
+                os.rename('data/'+name, 'data/'+name.replace('.txt', '.csv'))
 
     def __anaylsis__(self):
         self.geodata = {}
 
     def run(self):
         self.__parallel_process__()
+        self.__prepare__()
         self.__anaylsis__()
 
         return self.geodata
