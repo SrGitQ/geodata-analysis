@@ -5,7 +5,7 @@ def auxiliar_files():
     """
     import os
 
-    print("Files and analysis will be generated at... ", os.getcwd()+"/data")
+    # print("Files and analysis will be generated at... ", os.getcwd()+"/data")
     files_list = os.listdir()
     if 'data' not in files_list:
         os.mkdir('data')

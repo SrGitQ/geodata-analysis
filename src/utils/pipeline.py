@@ -35,8 +35,11 @@ class Pipeline:
 
         # Check if the file is in the data folder
         if not os.path.exists(self.route):
+            print("derivated no ready", self.route)
             # Download raw data
             download(self.url, self.name)
+        else:
+            print("derivated already", self.route)
 
     def __prepare__(self):
         unzip_file(self.name, 'data')
