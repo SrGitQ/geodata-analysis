@@ -42,8 +42,11 @@ class Pipeline:
             print("derivated already", self.route)
 
     def __prepare__(self):
-        unzip_file(self.name, 'data')
-        rm_file(self.name, 'data')
+        try:
+            unzip_file(self.name, 'data')
+            rm_file(self.name, 'data')
+        except:
+            pass
 
     def __preprocessing__(self):
         pass
