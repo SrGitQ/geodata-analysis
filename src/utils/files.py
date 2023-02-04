@@ -5,7 +5,7 @@ def auxiliar_files():
     """
     import os
 
-    print("Files and analysis will be generated at... ", os.getcwd()+"/data")
+    # print("Files and analysis will be generated at... ", os.getcwd()+"/data")
     files_list = os.listdir()
     if 'data' not in files_list:
         os.mkdir('data')
@@ -15,7 +15,12 @@ def rm_file(file:str="", route:str="data"):
         Delete the files unwanted, mainly .zip files.
     """
     import os
-    os.remove(route+'/'+file)
+    try:
+        os.remove(route+'/'+file)
+    except:
+        import shutil
+        shutil.rmtree(route+'/'+file)
+        print('Unexpected operation')
 
 
 def unzip_file(file:str="", route:str="data"):
