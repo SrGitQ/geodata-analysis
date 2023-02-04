@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from src.utils.downloader import download
 from src.utils.files import unzip_file
 from src.utils.files import rm_file
+from src.utils.files import auxiliar_files
+import os
 
 
 @dataclass
@@ -16,6 +18,7 @@ class Pipeline:
     """
     geodata = {}
     url:str = ""
+    route:str = ""
 
     def __download_data__(self):
         """
@@ -27,12 +30,23 @@ class Pipeline:
         """
         self.name = self.url.split('/')[-1]
         
-        # download raw data
-        download(self.url, self.name)
+        # Check if the data file is already created or it need to be created
+        auxiliar_files()
+
+        # Check if the file is in the data folder
+        if not os.path.exists(self.route):
+            print("derivated no ready", self.route)
+            # Download raw data
+            download(self.url, self.name)
+        else:
+            print("derivated already", self.route)
 
     def __prepare__(self):
-        unzip_file(self.name, 'data')
-        rm_file(self.name, 'data')
+        try:
+            unzip_file(self.name, 'data')
+            rm_file(self.name, 'data')
+        except:
+            pass
 
     def __preprocessing__(self):
         pass
