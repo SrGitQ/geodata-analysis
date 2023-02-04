@@ -11,7 +11,7 @@ class Sun(Pipeline):
         pass
 
     def __preprocessing__(self):
-        pass
+        self.geodata = pd.read_csv('data/Base_SUN.csv')
 
     def __anaylsis__(self):
         pass
