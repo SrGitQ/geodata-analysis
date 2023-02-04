@@ -9,8 +9,11 @@ class Marcogeo(Pipeline):
     """
     """
     def __prepare__(self):
-        route_inside = 'data/'+self.name
-        unzip_file(route_inside, route_inside.replace('.zip', ''))
+        try:
+            unzip_file(self.name)
+            rm_file(self.name)
+        except:
+            pass
 
     def __preprocessing__(self):
         self.geodata = gpd.read_file('data/conjunto_de_datos/00mun.shp')
