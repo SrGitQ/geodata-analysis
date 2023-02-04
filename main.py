@@ -23,7 +23,8 @@ class Analysis(Pipeline):
         marcogeo = Marcogeo(url='https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/geografia/marcogeo/889463807469/mg_2020_integrado.zip', route='data/conjunto_de_datos')
         sun = Sun(url='https://raw.githubusercontent.com/gperaza/segregation/master/data/Base_SUN_2018.csv', route='data/Base_SUN_2018.csv')
 
-        sources = [censo_1990, censo_2000, censo_2010, censo_2020, marcogeo, sun]
+        # sources = [censo_1990, censo_2000, censo_2010, censo_2020, marcogeo, sun]
+        sources = [censo_2020]
 
         with Pool(len(sources)) as p:
             p.map(process, sources)
