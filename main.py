@@ -1,5 +1,5 @@
 from src.utils import Pipeline
-from src.pipes import Censo, Marcogeo, Sun
+from src.pipes import Censo90, Censo00, Censo10, Censo20, Marcogeo, Sun
 from multiprocessing import Pool
 import geopandas as gpd
 import numpy as np
@@ -17,18 +17,17 @@ class Analysis(Pipeline):
     geodata:dict[str, dict | str | int | float | None] = {}
 
     def __parallel_process__(self):
-        censo_1990 = Censo(url='https://www.inegi.org.mx/contenidos/programas/ccpv/1990/microdatos/iter/00_nacional_1990_iter_txt.zip', route='data/ITER_NALTXT90.csv')
-        censo_2000 = Censo(url='https://www.inegi.org.mx/contenidos/programas/ccpv/2000/microdatos/iter/00_nacional_2000_iter_txt.zip', route='data/ITER_NALTXT00.csv')
-        censo_2010 = Censo(url='https://www.inegi.org.mx/contenidos/programas/ccpv/2010/microdatos/iter/00_nacional_2010_iter_dbf.zip', route='data/ITER_NALDBF10.dbf')
-        censo_2020 = Censo(url='https://www.inegi.org.mx/contenidos/programas/ccpv/2020/microdatos/iter/ITER_NAL_2020_csv.zip', route='data/ITER_NALCSV20.csv')
-        marcogeo = Marcogeo(url='https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/geografia/marcogeo/889463807469/mg_2020_integrado.zip', route='data/conjunto_de_datos')
-        sun = Sun(url='https://raw.githubusercontent.com/gperaza/segregation/master/data/Base_SUN_2018.csv', route='data/Base_SUN_2018.csv')
+        self.sources = {
+            "censo_1990" : Censo90(),
+            "censo_2000" : Censo00(),
+            "censo_2010" : Censo10(),
+            "censo_2020" : Censo20(),
+            "marcogeo" : Marcogeo(),
+            "sun" : Sun()
+        }
 
-        # sources = [censo_1990, censo_2000, censo_2010, censo_2020, marcogeo, sun]
-        sources = [censo_2020]
-
-        with Pool(len(sources)) as p:
-            p.map(process, sources)
+        with Pool(len(self.sources)) as p:
+            p.map(process, list(self.sources.values()))
     
     def __prepare__(self):
         
@@ -38,7 +37,27 @@ class Analysis(Pipeline):
                 os.rename('data/'+name, 'data/'+name.replace('.txt', '.csv'))
 
     def __anaylsis__(self):
-        self.geodata = {}
+        self.geodata = pd.merge(self.sources["marcogeo"].geodata, self.sources["sun"].geodata, left_on = 'CVEGEO', right_on = 'CVE_MUN')
+        self.geodata = pd.merge(self.sources["censo_1990"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN90', right_on = 'CVEGEO')
+        self.geodata = pd.merge(self.sources["censo_2000"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN2000', right_on = 'CVEGEO')
+        self.geodata = pd.merge(self.sources["censo_2010"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN2010', right_on = 'CVEGEO')
+        self.geodata = pd.merge(self.sources["censo_2020"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN2020', right_on = 'CVEGEO')
+
+        self.geodata = self.geodata[['CVEGEO','nom_mun', 'geometry_y', 'LATITUD', 'LONGITUD', 'POBTOT90', 'POBTOT2000', 'POBTOT2010', 'POB_2018', 'POBTOT2020','CVE_SUN', 'NOM_SUN']]
+
+        self.geodata = gpd.GeoDataFrame(self.geodata, geometry='geometry_y')
+
+        convert_dict = {
+            'POBTOT90': float,
+            'POBTOT2000': float,
+            'POBTOT2010': float,
+            'POBTOT2020': float,
+        }
+ 
+        self.geodata = self.geodata.astype(convert_dict)
+
+        with open('municipios.geojson' , 'w') as file:
+            file.write(self.geodata.to_json())
 
     def run(self):
         self.__parallel_process__()

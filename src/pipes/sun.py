@@ -7,6 +7,10 @@ import pandas as pd
 class Sun(Pipeline):
     """
     """
+    geodata = {}
+    url:str = "https://raw.githubusercontent.com/gperaza/segregation/master/data/Base_SUN_2018.csv"
+    route:str = "data/Base_SUN_2018.csv"
+
     def __prepare__(self):
         pass
 

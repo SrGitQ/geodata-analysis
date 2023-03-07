@@ -5,9 +5,13 @@ import pandas as pd
 from src.utils.cords import dms2dd
 
 
-class Censo(Pipeline):
+class Censo20(Pipeline):
     """
     """
+    geodata = {}
+    url:str = "https://www.inegi.org.mx/contenidos/programas/ccpv/2020/microdatos/iter/ITER_NAL_2020_csv.zip"
+    route:str = "data/ITER_NALCSV20.csv"
+    
     def __preprocessing__(self):
         self.geodata = gpd.read_file('data/ITER_NALCSV20.csv')#Change
         self.geodata = self.geodata.MUN.str.cat(self.geodata.LOC)
