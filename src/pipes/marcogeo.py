@@ -1,5 +1,5 @@
 from src.utils import Pipeline
-from src.utils.files import unzip_file
+from src.utils.files import rm_file, unzip_file
 import geopandas as gpd
 import numpy as np
 import pandas as pd

@@ -4,6 +4,7 @@ from multiprocessing import Pool
 import geopandas as gpd
 import numpy as np
 import pandas as pd
+import os
 
 def process(source:'Pipeline'):
     source.run()
