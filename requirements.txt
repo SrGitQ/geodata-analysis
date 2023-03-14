@@ -1,4 +1,6 @@
 geopandas
 pandas
 dataclasses
+numpy
 requests
+matplotlib
