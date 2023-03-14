@@ -13,13 +13,11 @@ class Censo10(Pipeline):
     route:str = "data/ITER_NALDBF10.dbf"
     
     def __preprocessing__(self):
-        self.geodata = gpd.read_file('data/ITER_NALCSV20.csv')#Change
-        self.geodata = self.geodata.MUN.str.cat(self.geodata.LOC)
-        self.geodata = self.geodata[['NOM_LOC', 'POBTOT', 'geometry', 'CVE_MUN']]
+        self.geodata = gpd.read_file('data/ITER_NALDBF10.dbf', encoding='utf-8')
 
     def __anaylsis__(self):
-        self.geodata['LATITUD'] = self.geodata['LATITUD'].apply(dms2dd)
-        self.geodata['LONGITUD'] = self.geodata['LONGITUD'].apply(dms2dd)
-        self.geodata = gpd.GeoDataFrame(self.geodata, geometry=gpd.points_from_xy(self.geodata.LONGITUD, self.geodata.LATITUD))
-
-        print(self.geodata)
+        self.geodata['CVE_MUN2010'] = self.geodata.entidad.str.cat(self.geodata.mun) 
+        self.geodata['CVE_MUN2010'] = pd.to_numeric(self.geodata['CVE_MUN2010'])
+        self.geodata = self.geodata.query("nom_loc == 'Total del Municipio'")
+        self.geodata = self.geodata[['nom_mun', 'pobtot', 'CVE_MUN2010']]
+        self.geodata = self.geodata.rename(columns={'pobtot': 'POBTOT2010'})

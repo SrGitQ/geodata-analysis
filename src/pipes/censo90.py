@@ -13,13 +13,15 @@ class Censo90(Pipeline):
     route:str = "data/ITER_NALTXT90.csv"
     
     def __preprocessing__(self):
-        self.geodata = gpd.read_file('data/ITER_NALCSV20.csv')#Change
-        self.geodata = self.geodata.MUN.str.cat(self.geodata.LOC)
-        self.geodata = self.geodata[['NOM_LOC', 'POBTOT', 'geometry', 'CVE_MUN']]
+        self.geodata = pd.read_csv('data/ITER_NALCSV90.csv', sep="\t" , encoding='latin-1')
+        
 
     def __anaylsis__(self):
-        self.geodata['LATITUD'] = self.geodata['LATITUD'].apply(dms2dd)
-        self.geodata['LONGITUD'] = self.geodata['LONGITUD'].apply(dms2dd)
-        self.geodata = gpd.GeoDataFrame(self.geodata, geometry=gpd.points_from_xy(self.geodata.LONGITUD, self.geodata.LATITUD))
-
-        print(self.geodata)
+        self.geodata['entidad'] = self.geodata['entidad'].astype(str)
+        self.geodata['mun'] = self.geodata['mun'].astype(str)
+        self.geodata['mun'] = self.geodata['mun'].str.zfill(3)
+        self.geodata['CVE_MUN90'] = self.geodata.entidad.str.cat(self.geodata.mun) 
+        self.geodata['CVE_MUN90'] = pd.to_numeric(self.geodata['CVE_MUN90'])
+        self.geodata = self.geodata.query("nom_loc == 'TOTAL MUNICIPAL'")
+        self.geodata = self.geodata[['nom_mun', 'p_total', 'CVE_MUN90']]
+        self.geodata = self.geodata.rename(columns={'p_total': 'POBTOT90'})
