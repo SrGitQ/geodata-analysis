@@ -5,6 +5,8 @@ Geodata Analysis incorporates advanced statistical techniques, such as geostatis
 
 With its independent pipeline architecture, the system enables efficient data processing and analysis, allowing researchers to focus on generating insights rather than the technical details of data manipulation. Whether you're working on a research project or informing policy decisions, Geodata Analysis provides a powerful set of tools to explore, analyze, and visualize Mexican census data with ease.
 
+![texto alternativo](./Screenshot 2023-03-18 at 1.33.22.png)
+
 ## installing dependencies
 You have to install the dependencies using conda with the channel Forge. You can do this by running the following command:
 ```bash
