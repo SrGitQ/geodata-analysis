@@ -4,3 +4,4 @@ dataclasses
 numpy
 requests
 matplotlib
+simpledbf

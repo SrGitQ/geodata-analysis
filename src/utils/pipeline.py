@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from src.utils.downloader import download
 from src.utils.files import unzip_file
-from src.utils.files import rm_file
-from src.utils.files import auxiliar_files
+import geopandas as gpd
+import pandas as pd
+import shutil
 import os
 
 
@@ -18,7 +19,19 @@ class Pipeline:
     """
     geodata = {}
     url:str = ""
-    route:str = ""
+    file:str = ""
+    extract_route:str = ""
+
+    def __source_route__(self):
+        """
+            It will return the source route inside the data folder,
+            if the file downloaded is a zip, the route will point to that zip,
+            the same as contrary case.
+        """
+        return 'data/'+self.url.split('/')[-1]
+
+    def __file_data_route__(self):
+        return 'data/'+self.file
 
     def __download_data__(self):
         """
@@ -28,31 +41,43 @@ class Pipeline:
             # Output
             data:geopandas dataframe []
         """
-        self.name = self.url.split('/')[-1]
-        
-        # Check if the data file is already created or it need to be created
-        auxiliar_files()
 
         # Check if the file is in the data folder
-        if not os.path.exists(self.route):
-            print("derivated no ready", self.route)
+        if not os.path.exists(self.__file_data_route__()):
+            print("derivated no ready", self.__file_data_route__())
             # Download raw data
-            download(self.url, self.name)
+            download(url=self.url, path=self.__source_route__())
         else:
-            print("derivated already", self.route)
+            print("derivated already", self.__file_data_route__())
+
+    def __mv_file_from_source__(self):
+        """
+            Take the raw data file from its source folder, and move
+            to the data folder.
+        """
+        shutil.move(self.extract_route, self.__file_data_route__())
 
     def __prepare__(self):
         try:
-            unzip_file(self.name, 'data')
-            rm_file(self.name, 'data')
+            # if the data is a zip file it can be unzipped
+            unzip_file(path=self.__source_route__())
+
+            if self.extract_route != "":
+                self.__mv_file_from_source__()
         except:
             pass
 
     def __preprocessing__(self):
-        pass
+        if '.csv' in self.file:
+            try:
+                self.geodata = pd.read_csv(self.__file_data_route__(), encoding='utf-8')
+            except:
+                self.geodata = pd.read_csv(self.__file_data_route__(), sep='\t', encoding='latin1')
+        else:
+            self.geodata = gpd.read_file(self.__file_data_route__(), encoding='utf-8')
 
     def __anaylsis__(self):
-        self.geodata = {}
+        pass
 
     def run(self):
         """
@@ -61,6 +86,7 @@ class Pipeline:
         self.__download_data__()
         self.__prepare__()
         self.__preprocessing__()
-        self.__anaylsis__()
+        print('preprocessing ended', self.file)
+        # self.__anaylsis__()
 
-        return self.geodata
+        # return self.geodata

@@ -1,3 +1,5 @@
+import os
+
 def auxiliar_files():
     """
         This function will check if all the auxiliar files exist, the files will
@@ -23,11 +25,17 @@ def rm_file(file:str="", route:str="data"):
         print('Unexpected operation')
 
 
-def unzip_file(file:str="", route:str="data"):
+def unzip_file(path:str=""):
     """
         Unzip the files that contains the raw data.
     """
+    folder_name = path.replace('.zip', '')
+
+    if folder_name.split('/')[-1] in os.listdir('data'):
+        return
+
     import zipfile
 
-    with zipfile.ZipFile(route+'/'+file, 'r') as zip_ref:
-        zip_ref.extractall(route)
+    with zipfile.ZipFile(path, 'r') as zip_ref:
+        print('unziping file...', path)
+        zip_ref.extractall(folder_name)

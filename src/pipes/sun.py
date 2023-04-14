@@ -1,21 +1,13 @@
 from src.utils import Pipeline
-import geopandas as gpd
-import numpy as np
-import pandas as pd
+from dataclasses import dataclass
 
 
+@dataclass
 class Sun(Pipeline):
     """
     """
     geodata = {}
     url:str = "https://raw.githubusercontent.com/gperaza/segregation/master/data/Base_SUN_2018.csv"
-    route:str = "data/Base_SUN_2018.csv"
+    file:str = "Base_SUN_2018.csv"
+    extract_route:str = ""
 
-    def __prepare__(self):
-        pass
-
-    def __preprocessing__(self):
-        self.geodata = pd.read_csv('data/Base_SUN.csv')
-
-    def __anaylsis__(self):
-        pass

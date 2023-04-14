@@ -2,9 +2,10 @@ from src.utils import Pipeline
 from src.pipes import Censo90, Censo00, Censo10, Censo20, Marcogeo, Sun
 from multiprocessing import Pool
 import geopandas as gpd
-import numpy as np
 import pandas as pd
+from src.utils.files import auxiliar_files
 import os
+import shutil
 
 def process(source:'Pipeline'):
     source.run()
@@ -14,7 +15,7 @@ class Analysis(Pipeline):
     """
         Analysis
     """
-    geodata:dict[str, dict | str | int | float | None] = {}
+    geodata= {}
 
     def __parallel_process__(self):
         self.sources = {
@@ -25,9 +26,9 @@ class Analysis(Pipeline):
             "marcogeo" : Marcogeo(),
             "sun" : Sun()
         }
-
         with Pool(len(self.sources)) as p:
             p.map(process, list(self.sources.values()))
+
     
     def __prepare__(self):
         
@@ -35,6 +36,15 @@ class Analysis(Pipeline):
         for name in names:
             if '.txt' in name:
                 os.rename('data/'+name, 'data/'+name.replace('.txt', '.csv'))
+            if '.csv' not in name and not '.shx' in name and not '.shp' in name:
+                print('removing the file: ', name)
+                try:
+                    os.remove('data/'+name)
+                except:
+                    shutil.rmtree('data/'+name)
+                else:
+                    pass
+        
 
     def __anaylsis__(self):
         self.geodata = pd.merge(self.sources["marcogeo"].geodata, self.sources["sun"].geodata, left_on = 'CVEGEO', right_on = 'CVE_MUN')
@@ -57,12 +67,14 @@ class Analysis(Pipeline):
         self.geodata = self.geodata.astype(convert_dict)
 
         with open('municipios.geojson' , 'w') as file:
-            file.write(self.geodata.to_json())
+            file.write(self.geodata.to_json()) #pylint: disable=no-data-type
 
     def run(self):
+        # Check if the data file is already created or it need to be created
+        auxiliar_files()
         self.__parallel_process__()
         self.__prepare__()
-        self.__anaylsis__()
+        # self.__anaylsis__()
 
         return self.geodata
 
