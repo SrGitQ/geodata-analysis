@@ -87,6 +87,7 @@ class Pipeline:
         self.__prepare__()
         self.__preprocessing__()
         print('preprocessing ended', self.file)
-        # self.__anaylsis__()
+        self.__anaylsis__()
+        #print(self.geodata)
 
         # return self.geodata
