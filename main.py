@@ -14,15 +14,15 @@ class Analysis(Pipeline):
     """
         Analysis
     """
-    geodata= {}
+    geodata = {}
 
     def __parallel_process__(self):
         self.sources = {
-            #"censo_1990" : Censo90(),
-            #"censo_2000" : Censo00(),
-            #"censo_2010" : Censo10(),
-            #"censo_2020" : Censo20(),
-            "marcogeo" : Marcogeo(),
+            "censo_1990" : Censo90(),
+            "censo_2000" : Censo00(),
+            "censo_2010" : Censo10(),
+            "censo_2020" : Censo20(),
+            #"marcogeo" : Marcogeo(),
             "sun" : Sun()
         }
         for source in self.sources:
@@ -49,34 +49,30 @@ class Analysis(Pipeline):
         
 
     def __anaylsis__(self):
-        print(self.sources["marcogeo"].geodata, self.sources["sun"].geodata)
-        self.geodata = pd.merge(self.sources["marcogeo"].geodata, self.sources["sun"].geodata, left_on = 'CVEGEO', right_on = 'CVE_MUN')
-        #self.geodata = pd.merge(self.sources["censo_1990"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN90', right_on = 'CVEGEO')
-        #self.geodata = pd.merge(self.sources["censo_2000"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN2000', right_on = 'CVEGEO')
-        #self.geodata = pd.merge(self.sources["censo_2010"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN2010', right_on = 'CVEGEO')
-        #self.geodata = pd.merge(self.sources["censo_2020"].geodata, self.geodata, how = "right", left_on = 'CVE_MUN2020', right_on = 'CVEGEO')
-#, 'POBTOT90', 'POBTOT2000', 'POBTOT2010', 'POB_2018', 'POBTOT2020'
-        self.geodata = self.geodata[['CVEGEO','nom_mun', 'geometry_y', 'LATITUD', 'LONGITUD','CVE_SUN', 'NOM_SUN']]
+        # Merging all the censuses
+        #self.geodata = self.sources['censo_1990'].geodata
+        # -> 1990, 2000
+        self.geodata = pd.merge(self.sources['censo_1990'].geodata, self.sources['censo_2000'].geodata, left_on="CVEGEO", right_on="CVEGEO")
+        # -> 1990, 2000, 2010
+        self.geodata = pd.merge(self.geodata, self.sources['censo_2010'].geodata, left_on="CVEGEO", right_on="CVEGEO")
+        # -> 1990, 2000, 2010, 2020
+        self.geodata = pd.merge(self.geodata, self.sources['censo_2020'].geodata, left_on="CVEGEO", right_on="CVEGEO")
 
-        self.geodata = gpd.GeoDataFrame(self.geodata, geometry='geometry_y')
+        # Merging SUN
+        
 
-        convert_dict = {
-            'POBTOT90': float,
-            'POBTOT2000': float,
-            'POBTOT2010': float,
-            'POBTOT2020': float,
-        }
- 
-        #self.geodata = self.geodata.astype(convert_dict)
-
-        with open('municipios.geojson' , 'w') as file:
-            file.write(self.geodata.to_json()) #pylint: disable=no-data-type
+        # Exporting as geojson
+        with open('municipios.geojson', 'w') as file:
+            file.write(self.geodata.to_json())
+        # Exporting as csv
+        with open('municipios.csv', 'w') as file:
+            file.write(self.geodata.to_csv())
 
     def run(self):
         # Check if the data file is already created or it need to be created
         auxiliar_files()
         self.__parallel_process__()
-        self.__prepare__()
+        #self.__prepare__()
         self.__anaylsis__()
 
         return self.geodata
