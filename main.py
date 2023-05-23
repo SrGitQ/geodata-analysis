@@ -22,7 +22,7 @@ class Analysis(Pipeline):
             "censo_2000" : Censo00(),
             "censo_2010" : Censo10(),
             "censo_2020" : Censo20(),
-            #"marcogeo" : Marcogeo(),
+            "marcogeo" : Marcogeo(),
             "sun" : Sun()
         }
         for source in self.sources:
@@ -50,7 +50,6 @@ class Analysis(Pipeline):
 
     def __anaylsis__(self):
         # Merging all the censuses
-        #self.geodata = self.sources['censo_1990'].geodata
         # -> 1990, 2000
         self.geodata = pd.merge(self.sources['censo_1990'].geodata, self.sources['censo_2000'].geodata, left_on="CVEGEO", right_on="CVEGEO")
         # -> 1990, 2000, 2010
@@ -59,7 +58,11 @@ class Analysis(Pipeline):
         self.geodata = pd.merge(self.geodata, self.sources['censo_2020'].geodata, left_on="CVEGEO", right_on="CVEGEO")
 
         # Merging SUN
-        
+        self.sources["sun"].geodata['CVEGEO'] = self.sources["sun"].geodata['CVEGEO'].astype('int64')
+        self.geodata['CVEGEO'] = self.geodata['CVEGEO'].astype('int64')
+        self.geodata = pd.merge(self.sources["sun"].geodata, self.geodata, left_on="CVEGEO", right_on="CVEGEO")
+
+        # Merging Polygons
 
         # Exporting as geojson
         with open('municipios.geojson', 'w') as file:
